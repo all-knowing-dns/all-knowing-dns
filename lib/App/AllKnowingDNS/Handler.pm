@@ -19,7 +19,8 @@ sub handle_ptr_query {
     my ($querylog, $zone, $qname, $qclass, $qtype) = @_;
 
     # Forward this query to our upstream DNS first, if any.
-    if ($zone->upstream_dns ne '') {
+    if (defined($zone->upstream_dns) &&
+        $zone->upstream_dns ne '') {
         my $resolver = Net::DNS::Resolver->new(
             nameservers => [ $zone->upstream_dns ],
             recurse => 0,
