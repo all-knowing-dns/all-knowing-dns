@@ -10,6 +10,7 @@ all_from 'lib/App/AllKnowingDNS/Handler.pm';
 requires 'Net::DNS';
 requires 'Privileges::Drop';
 requires 'Mouse';
+requires 'MouseX::NativeTraits';
 requires 'NetAddr::IP';
 
 install_script 'all-knowing-dns';
