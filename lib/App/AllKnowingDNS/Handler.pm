@@ -59,6 +59,7 @@ sub handle_aaaa_query {
     my $numdigits = (128 - $mask) / 4;
     $regexp =~ s/\\%DIGITS\\%/([a-z0-9]{$numdigits})/i;
     my ($digits) = ($qname =~ /$regexp/);
+    return ('NXDOMAIN', undef, undef, undef) unless defined($digits);
 
     # Pad with zeros so that we can match 4 digits each.
     $digits = "0$digits" while (length($digits) % 4) != 0;
