@@ -39,7 +39,7 @@ sub add_zone {
 
     $zone->ptrzone(App::AllKnowingDNS::Util::netmask_to_ptrzone($zone->network));
 
-    push $self->zones, $zone;
+    push @{$self->zones}, $zone;
 }
 
 =head2 zone_for_ptr($zone)
