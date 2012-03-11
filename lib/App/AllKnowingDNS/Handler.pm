@@ -45,6 +45,12 @@ sub handle_ptr_query {
             if ($querylog) {
                 say strftime('%x %X %z', localtime) . " - Relaying upstream answer for $qname";
             }
+            my @answer = $result->answer;
+            for my $answer (@answer) {
+                my $name = $answer->name;
+                $name =~ s/\.upstream$//;
+                $answer->name($name);
+            }
             return ('NOERROR', [ $result->answer ], [], [], { aa => 1 });
         }
     }
