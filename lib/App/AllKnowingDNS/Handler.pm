@@ -27,8 +27,6 @@ This module contains the C<Net::DNS::Nameserver> handler function.
 
 our @EXPORT = qw(reply_handler);
 
-our $VERSION = '1.1';
-
 sub handle_ptr_query {
     my ($querylog, $zone, $qname, $qclass, $qtype) = @_;
 

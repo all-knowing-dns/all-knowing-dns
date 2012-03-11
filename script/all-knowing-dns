@@ -15,6 +15,8 @@ use Net::DNS::Nameserver;
 use Privileges::Drop;
 use v5.10;
 
+our $VERSION = '1.1';
+
 my $configfile = '/etc/all-knowing-dns.conf';
 my $querylog = 0;
 
@@ -22,7 +24,7 @@ GetOptions(
     'configfile=s' => \$configfile,
     'querylog!' => \$querylog,
     'version' => sub {
-        say "AllKnowingDNS v$App::AllKnowingDNS::Handler::VERSION " .
+        say "AllKnowingDNS v$VERSION " .
             "© 2012 Michael Stapelberg and contributors";
         exit 0;
     },
@@ -38,7 +40,7 @@ GetOptions(
 );
 
 openlog('all-knowing-dns', 'pid', 'daemon');
-syslog('info', "AllKnowingDNS v$App::AllKnowingDNS::Handler::VERSION starting");
+syslog('info', "AllKnowingDNS v$VERSION starting");
 
 my $input;
 my $fh;
