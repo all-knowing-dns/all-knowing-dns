@@ -1,0 +1,16 @@
+History file for AllKnowingDNS
+
+1.2 2012-03-12
+
+- Fix documentation (provide proper NAME sections)
+- Provide a Changes file
+
+1.1 2012-03-11
+
+- Fix compatibility with Perl < 5.14 by dereferencing an arrayref explicitly
+- Add documentation for all-knowing-dns(1)
+- Remove .upstream suffix when relaying DNS answers
+
+1.0 2012-03-08
+
+- Initial release
