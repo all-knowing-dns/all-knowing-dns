@@ -17,7 +17,7 @@ App::AllKnowingDNS::Handler - main code of AllKnowingDNS
 
 =head1 DESCRIPTION
 
-Note: User documentation is in all-knowing-dns(1).
+Note: User documentation is in L<all-knowing-dns>(1).
 
 This module contains the C<Net::DNS::Nameserver> handler function.
 
@@ -101,6 +101,7 @@ Returns DNS RRs for PTR and AAAA queries of zones which are configured in
 C<$config>.
 
 =cut
+
 sub reply_handler {
     my ($config, $querylog, $qname, $qclass, $qtype, $peerhost) = @_;
 
