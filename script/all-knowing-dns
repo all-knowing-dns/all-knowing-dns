@@ -155,10 +155,12 @@ contain %DIGITS% exactly once. When answering AAAA queries, %DIGITS% will be
 parsed and converted back to an IPv6 address.
 
 Example:
+
     network 2001:4d88:100e:ccc0::/64
         resolves to ipv6-%DIGITS%.nutzer.raumzeitlabor.de
 
 Example query:
+
     The PTR query 2001:4d88:100e:ccc0:216:eaff:fecb:826 will resolve to
     ipv6-0216eafffecb0826.nutzer.raumzeitlabor.de
 
@@ -168,11 +170,13 @@ Before answering a PTR query for this network, AllKnowingDNS will ask the DNS
 server at I<address> first, appending .upstream to the query.
 
 Example:
+
     network 2001:4d88:100e:ccc0::/64
         resolves to ipv6-%DIGITS%.nutzer.raumzeitlabor.de
         with upstream 2001:4d88:100e:1::2
 
 Example query:
+
     The PTR query 2001:4d88:100e:ccc0:219:dbff:fe43:2ec5 will make
     AllKnowingDNS ask for
     5.c.e.2.3.4.e.f.f.f.b.d.9.1.2.0.0.c.c.c.e.0.0.1. \
