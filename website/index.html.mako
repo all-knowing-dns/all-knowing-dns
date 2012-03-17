@@ -45,6 +45,12 @@ the <a href="https://metacpan.org/module/all-knowing-dns">manpage
 all-knowing-dns(1)</a>.
 </p>
 
+<p>
+In case you understand German, you can also <a
+href="http://www.youtube.com/watch?v=PG_0gXp5Z4k">watch a presentation</a>
+about AllKnowingDNS.
+</p>
+
 <h3>Download</h3>
 
 <p style="text-align: justify">
