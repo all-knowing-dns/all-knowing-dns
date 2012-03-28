@@ -1,5 +1,9 @@
 History file for AllKnowingDNS
 
+1.3 2012-03-28
+
+- Return an empty NOERROR response for non-AAA records
+
 1.2 2012-03-12
 
 - Fix documentation (provide proper NAME sections)
