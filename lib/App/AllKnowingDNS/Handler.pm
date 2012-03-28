@@ -79,6 +79,10 @@ sub handle_aaaa_query {
     my ($digits) = ($qname =~ /$regexp/);
     return ('NXDOMAIN', undef, undef, undef) unless defined($digits);
 
+    if ($qtype ne 'AAAA') {
+        return ('NOERROR', [ ], [], [], { aa => 1 });
+    }
+
     # Pad with zeros so that we can match 4 digits each.
     $digits = "0$digits" while (length($digits) % 4) != 0;
 
@@ -114,8 +118,7 @@ sub reply_handler {
         return handle_ptr_query($querylog, $zone, $qname, $qclass, $qtype);
     }
 
-    if ($qtype eq 'AAAA' &&
-        defined(my $zone = $config->zone_for_aaaa($qname))) {
+    if (defined(my $zone = $config->zone_for_aaaa($qname))) {
         return handle_aaaa_query($zone, $qname, $qclass, $qtype);
     }
 
