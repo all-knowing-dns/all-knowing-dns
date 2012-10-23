@@ -1,0 +1,9 @@
+^AllKnowingDNS.*\.tar\.gz$
+^MANIFEST\.
+^blib/
+^Makefile$
+\.old$
+.git
+debian/
+docs/slides*
+website/
