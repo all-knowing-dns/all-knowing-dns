@@ -1,5 +1,9 @@
 History file for AllKnowingDNS
 
+1.4 2012-10-23
+
+- Upload with Module::Install > 1.04 (due to a bug in that version)
+
 1.3 2012-03-28
 
 - Return an empty NOERROR response for non-AAA records
