@@ -48,9 +48,9 @@ has 'zones' => (
 sub add_zone {
     my ($self, $zone) = @_;
 
-    my $aaaazone = $zone->resolves_to;
-    $aaaazone =~ s/^.*?%DIGITS%[^.]*//;
-    $zone->aaaazone($aaaazone);
+    my $aaaazone = quotemeta($zone->resolves_to);
+    $aaaazone =~ s/\\%DIGITS\\%/([a-z0-9]+)/i;
+    $zone->aaaazone(qr/^$aaaazone$/);
 
     $zone->ptrzone(App::AllKnowingDNS::Util::netmask_to_ptrzone($zone->network));
 
@@ -101,8 +101,7 @@ sub zone_for_aaaa {
     my ($self, $query) = @_;
 
     for my $zone ($self->all_zones) {
-        my $suffix = $zone->aaaazone;
-        return $zone if substr($query, -1 * length($suffix)) eq $suffix;
+        return $zone if $query =~ $zone->aaaazone;
     }
 
     return undef;
