@@ -1,5 +1,9 @@
 History file for AllKnowingDNS
 
+1.5 2013-08-30
+
+- don’t lookup AAAA zones by suffix only, do a full match
+
 1.4 2012-10-23
 
 - Upload with Module::Install > 1.04 (due to a bug in that version)
