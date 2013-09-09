@@ -67,6 +67,7 @@ is($rcode, 'NOERROR', 'no error when handling query');
 is(scalar @$ans, 1, 'one answer RR');
 ($rr) = @$ans;
 is($rr->type, 'AAAA', 'RR type is AAAA');
-is($rr->rdatastr, '2a00:15a0:2:0:0:0:192:1', 'RR ok');
+ok(($rr->rdatastr eq '2a00:15a0:2:0:0:0:192:1') ||
+   ($rr->rdatastr eq '2a00:15a0:2::192:1'), 'RR ok');
 
 done_testing;
