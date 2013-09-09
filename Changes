@@ -1,5 +1,9 @@
 History file for AllKnowingDNS
 
+1.6 2013-09-08
+
+- fix testcase t/005-same-domain.t with newer Net::DNS
+
 1.5 2013-08-30
 
 - don’t lookup AAAA zones by suffix only, do a full match
