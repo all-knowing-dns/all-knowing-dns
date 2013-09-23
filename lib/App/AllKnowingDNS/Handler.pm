@@ -131,7 +131,7 @@ __END__
 
 =head1 VERSION
 
-Version 1.6
+Version 1.7
 
 =head1 AUTHOR
 

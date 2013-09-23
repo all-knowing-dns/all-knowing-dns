@@ -1,5 +1,9 @@
 History file for AllKnowingDNS
 
+1.7 2013-09-23
+
+- upload with Module::Install > 1.04 (again, sorry about that)
+
 1.6 2013-09-08
 
 - fix testcase t/005-same-domain.t with newer Net::DNS
