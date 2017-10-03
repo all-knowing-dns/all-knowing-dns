@@ -50,13 +50,18 @@ sub parse_config {
         # If we are not currently parsing a zone, only the 'network' keyword is
         # appropriate.
         if (!defined($current_zone) &&
-            !($line =~ /^network/i) && !($line =~ /^listen/i)) {
-            say STDERR qq|all-knowing-dns: CONFIG: Expected 'network' or 'listen' keyword in line "$line"|;
+            !($line =~ /^network/i) && !($line =~ /^listen/i) && !($line =~ /^port/i)) {
+            say STDERR qq|all-knowing-dns: CONFIG: Expected 'network', 'listen' or 'port' keyword in line "$line"|;
             next;
         }
 
         if (my ($address) = ($line =~ /^listen (.*)/i)) {
             $config->add_listen_address(lc $address);
+            next;
+        }
+
+        if (my ($port) = ($line =~ /^port (.*)/i)) {
+            $config->port($port);
             next;
         }
 

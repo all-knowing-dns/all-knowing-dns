@@ -33,6 +33,12 @@ has 'listen_addresses' => (
     },
 );
 
+has 'port' => (
+    is => 'rw',
+    isa => 'Int',
+    default => 53,
+);
+
 has 'zones' => (
     traits => [ 'Array' ],
     is => 'ro',
