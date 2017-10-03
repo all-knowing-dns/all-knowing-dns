@@ -58,9 +58,9 @@ close($fh);
 my $config = App::AllKnowingDNS::Util::parse_config($input);
 # TODO: sanity check config
 
-# XXX: port configurable? better error message when running without privileges
+# XXX: better error message when running without privileges
 my $ns = Net::DNS::Nameserver->new(
-    LocalPort => 53,
+    LocalPort => $config->port,
     LocalAddr => [ $config->all_listen_addresses ],
     ReplyHandler => sub {
         App::AllKnowingDNS::Handler::reply_handler($config, $querylog, @_)
@@ -123,6 +123,8 @@ The configuration file is wonderfully simple:
     listen 79.140.39.197
     listen 2001:4d88:100e:1::3
     
+    port 53
+    
     # RaumZeitLabor
     network 2001:4d88:100e:ccc0::/64
         resolves to ipv6-%DIGITS%.nutzer.raumzeitlabor.de
@@ -139,7 +141,12 @@ one:
 
 =item B<listen I<address>>
 
-Listens on the given I<address> (IPv4 and IPv6 is supported) on port 53.
+Listens on the given I<address> (IPv4 and IPv6 is supported), by default on
+port 53.
+
+=item B<port I<port>>
+
+Listens on the given I<port>, defaults to 53.
 
 =item B<network I<network>>
 
