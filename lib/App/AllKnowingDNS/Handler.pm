@@ -58,7 +58,7 @@ sub handle_ptr_query {
     my $ttl = 3600;
     my $fullname = $qname;
     substr($fullname, -1 * length($zone->ptrzone)) = '';
-    my $hostpart = join '', reverse split /\./, $fullname;
+    my $hostpart = join '', map { lc } reverse split /\./, $fullname;
     my $rdata = $zone->resolves_to;
     $rdata =~ s/%DIGITS%/$hostpart/i;
     my $rr = Net::DNS::RR->new("$qname $ttl $qclass $qtype $rdata");
