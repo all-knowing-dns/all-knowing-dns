@@ -56,7 +56,7 @@ sub add_zone {
 
     my $aaaazone = quotemeta($zone->resolves_to);
     $aaaazone =~ s/\\%DIGITS\\%/([a-z0-9]+)/i;
-    $zone->aaaazone(qr/^$aaaazone$/);
+    $zone->aaaazone(qr/^$aaaazone$/i);
 
     $zone->ptrzone(App::AllKnowingDNS::Util::netmask_to_ptrzone($zone->network));
 
@@ -83,7 +83,7 @@ sub zone_for_ptr {
 
     for my $zone ($self->all_zones) {
         my $suffix = $zone->ptrzone;
-        return $zone if substr($query, -1 * length($suffix)) eq $suffix;
+        return $zone if substr(lc($query), -1 * length($suffix)) eq lc($suffix);
     }
 
     return undef;
@@ -107,7 +107,7 @@ sub zone_for_aaaa {
     my ($self, $query) = @_;
 
     for my $zone ($self->all_zones) {
-        return $zone if $query =~ $zone->aaaazone;
+        return $zone if lc($query) =~ $zone->aaaazone;
     }
 
     return undef;
