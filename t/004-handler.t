@@ -40,6 +40,20 @@ is(scalar @$ans, 1, 'one answer RR');
 my ($rr) = @$ans;
 is($rr->type, 'PTR', 'RR type is PTR');
 is($rr->rdatastr, 'ipv6-0219dbfffe432ec7-blah.nutzer.raumzeitlabor.de.', 'RR ok');
+is($rr->owner, $qname, 'RR owner is original qname');
+
+################################################################################
+# Check resolving PTR records in randomized case with a config
+################################################################################
+
+$qname = '7.C.e.2.3.4.E.f.F.f.B.d.9.1.2.0.0.C.c.C.e.0.0.1.8.8.D.4.1.0.0.2.iP6.ArpA';
+($rcode, $ans, $auth, $add) = reply_handler($config, 0, $qname, $qclass, $qtype, $peerhost);
+is($rcode, 'NOERROR', 'no error when handling query');
+is(scalar @$ans, 1, 'one answer RR');
+($rr) = @$ans;
+is($rr->type, 'PTR', 'RR type is PTR');
+is($rr->rdatastr, 'ipv6-0219dbfffe432ec7-blah.nutzer.raumzeitlabor.de.', 'RR ok');
+is($rr->owner, $qname, 'RR owner is original qname');
 
 ################################################################################
 # Check resolving hostnames to AAAA records
@@ -55,6 +69,23 @@ is(scalar @$ans, 1, 'one answer RR');
 ($rr) = @$ans;
 is($rr->type, 'AAAA', 'RR type is AAAA');
 is($rr->rdatastr, '2001:4d88:100e:ccc0:219:dbff:fe43:2ec7', 'RR ok');
+is($rr->owner, $qname, 'RR owner is original qname');
+
+################################################################################
+# Check resolving hostnames to AAAA records with randomized case
+################################################################################
+
+$qname = 'iPv6-0219dbfffe432ec7-BlAh.NuTzEr.RaUmZeItLaBoR.dE';
+$qclass = 'IN';
+$qtype = 'AAAA';
+$peerhost = 'testsuite';
+($rcode, $ans, $auth, $add) = reply_handler($config, 0, $qname, $qclass, $qtype, $peerhost);
+is($rcode, 'NOERROR', 'no error when handling query');
+is(scalar @$ans, 1, 'one answer RR');
+($rr) = @$ans;
+is($rr->type, 'AAAA', 'RR type is AAAA');
+is($rr->rdatastr, '2001:4d88:100e:ccc0:219:dbff:fe43:2ec7', 'RR ok');
+is($rr->owner, $qname, 'RR owner is original qname');
 
 ################################################################################
 # Check resolving hostnames to A records

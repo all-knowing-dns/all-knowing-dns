@@ -58,7 +58,7 @@ sub handle_ptr_query {
     my $ttl = 3600;
     my $fullname = $qname;
     substr($fullname, -1 * length($zone->ptrzone)) = '';
-    my $hostpart = join '', reverse split /\./, $fullname;
+    my $hostpart = join '', map { lc } reverse split /\./, $fullname;
     my $rdata = $zone->resolves_to;
     $rdata =~ s/%DIGITS%/$hostpart/i;
     my $rr = Net::DNS::RR->new("$qname $ttl $qclass $qtype $rdata");
@@ -70,13 +70,13 @@ sub handle_aaaa_query {
 
     my $ttl = 3600;
     my $block = '([a-z0-9]{4})';
-    my $regexp = quotemeta($zone->resolves_to);
+    my $regexp = quotemeta(lc($zone->resolves_to));
     my ($address, $mask) = ($zone->network =~ m,^([^/]+)/([0-9]+),);
     my @components = unpack("n8", ipv6_aton($address));
 
     my $numdigits = (128 - $mask) / 4;
     $regexp =~ s/\\%DIGITS\\%/([a-z0-9]{$numdigits})/i;
-    my ($digits) = ($qname =~ /$regexp/);
+    my ($digits) = (lc($qname) =~ /$regexp/);
     return ('NXDOMAIN', undef, undef, undef) unless defined($digits);
 
     if ($qtype ne 'AAAA') {
