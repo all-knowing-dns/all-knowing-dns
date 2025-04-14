@@ -69,10 +69,10 @@ my $ns = Net::DNS::Nameserver->new(
     NotifyHandler => sub { ('SERVFAIL', undef, undef, undef) },
     Verbose => 0);
 
-# Now that we are listening, drop privileges.
+# Drop privileges.
 drop_privileges('nobody');
 
-$ns->main_loop;
+$ns->start_server(0);
 
 __END__
 
