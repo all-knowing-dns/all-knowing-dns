@@ -72,7 +72,29 @@ my $ns = Net::DNS::Nameserver->new(
 # Drop privileges.
 drop_privileges('nobody');
 
-$ns->start_server(0);
+# Hack, with internal function calls & everything because
+# Net::DNS::Nameserver has a hardcoded 600 second
+# timeout in the subprocesses (which apparently can't be disabled)
+my $noop = sub { };
+sub _spawn {
+        my $coderef = shift;
+        unless ( defined( my $pid = fork() ) ) {
+                die "cannot fork: $!";
+        } elsif ($pid) {
+                return $pid;            ## parent
+        }
+        # else ...
+        local $SIG{TERM} = $noop;
+        local $SIG{CHLD} = \&_reaper;
+        $coderef->();                        ## child
+        exit;
+}
+
+foreach my $ip ( @{$ns->{LocalAddr}} ) {
+        my $port = $ns->{LocalPort};
+        _spawn (sub { $ns->_TCP_server( $ip, $port, 0 ) });
+        _spawn (sub { $ns->_UDP_server( $ip, $port, 0 ) });
+}
 
 __END__
 
